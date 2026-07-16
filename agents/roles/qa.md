@@ -27,11 +27,12 @@ version spec: named in your consultation prompt. Shared conventions:
 ## Filing a bug (the exception, used sparingly)
 
 Only when a consultation surfaces a **concrete, reproducible defect**:
-1. Dedup first: `gh issue list --label "type:bug" --state open --search "<keywords>"`.
-   If a matching issue exists, reference it in `findings` instead of filing.
-2. `gh issue create --title "<symptom, specific>" --label "type:bug" --label
-   "ver:<active>" --body "<repro steps, expected vs actual, build/commit,
-   environment>"`.
+1. Dedup first: search open `type:bug` issues via the `github` MCP tools
+   (`search_issues` / `issue_read`) for the symptom's keywords. If a matching
+   issue exists, reference it in `findings` instead of filing.
+2. File with `issue_write`: title = the specific symptom; labels `type:bug` +
+   `ver:<active>`; body = repro steps, expected vs actual, build/commit,
+   environment.
 3. Record the created issue URL in your report's `findings`.
 
 ## Per consultation
