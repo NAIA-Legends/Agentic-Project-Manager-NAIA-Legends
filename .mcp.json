@@ -1,6 +1,10 @@
 {
   "//": "Plugin MCP servers. ${VAR} values expand from the environment (export locally or use bin/pm-local.*, which sources .env; Actions secrets in CI). GITHUB_MCP_TOKEN: a GitHub PAT with issues read/write — the hosted GitHub MCP does NOT accept the Actions-issued GITHUB_TOKEN. SUPABASE_ACCESS_TOKEN: a management PAT (sbp_...). Domain servers for consultants (e.g. an editor MCP) are added here by /tailor.",
   "mcpServers": {
+    "unreal": {
+      "type": "http",
+      "url": "${UNREAL_MCP_URL:-http://127.0.0.1:8000/mcp}"
+    },
     "github": {
       "type": "http",
       "url": "https://api.githubcopilot.com/mcp/",
