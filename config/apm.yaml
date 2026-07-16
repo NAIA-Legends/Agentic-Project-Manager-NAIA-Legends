@@ -24,22 +24,56 @@ ledger:
   backend: supabase
   jsonfile_path: ".apm/ledger.json"
 
+pm:
+  tool_surface: mcp             # GitHub + Supabase via MCP — portable off this machine
+  mcp_config: mcp/pm.mcp.json
+  mcp_tools:
+    - mcp__github
+    - mcp__supabase
+
+consult:
+  mcp_config: mcp/consult.mcp.json  # unreal (editor inspection) + github (QA bugs)
+
+# Read-only Unreal editor inspection (SPEC.md §3.10): discovery/introspection
+# tools only. QA additionally runs automation/perf via call_tool +
+# execute_python_code — charter-bound to modify nothing (§3.6). Editor server
+# is only reachable where an editor runs; elsewhere consults degrade to
+# code+docs+web (server marked failed, session continues).
+x-unreal-inspect: &unreal_inspect
+  - "mcp__unreal__discover_python_class"
+  - "mcp__unreal__discover_python_module"
+  - "mcp__unreal__discover_python_function"
+  - "mcp__unreal__list_python_subsystems"
+  - "mcp__unreal__list_toolsets"
+  - "mcp__unreal__describe_toolset"
+
 roles:
   - name: gd
     title: "Game Designer / Feel Owner — feel targets, tuning values, playbook, catch rules"
+    extra_tools: *unreal_inspect
   - name: ge
     title: "Gameplay Engineer — pawns, ball flight, input, camera, match FSM, pipeline; triage generalist"
+    extra_tools: *unreal_inspect
   - name: aie
     title: "AI Engineer — per-pawn FSMs: pursuit, routes, coverage, rush (v2–v7)"
+    extra_tools: *unreal_inspect
   - name: ta
     title: "Tech Artist / Animation — asset pipeline, retargeting, materials, VFX/UI; budget guardrails"
+    extra_tools: *unreal_inspect
   - name: qa
     title: "QA / Playtest Coordinator — regression, automation, perf, exit-criterion protocol"
     extra_tools:
-      - "Bash(gh issue list:*)"
-      - "Bash(gh issue view:*)"
-      - "Bash(gh issue create:*)"
-      - "Bash(gh search:*)"
+      - "mcp__unreal__discover_python_class"
+      - "mcp__unreal__discover_python_module"
+      - "mcp__unreal__discover_python_function"
+      - "mcp__unreal__list_python_subsystems"
+      - "mcp__unreal__list_toolsets"
+      - "mcp__unreal__describe_toolset"
+      - "mcp__unreal__call_tool"
+      - "mcp__unreal__execute_python_code"
+      - "mcp__github__issue_read"
+      - "mcp__github__issue_write"
+      - "mcp__github__search_issues"
 
 # Mirror of SPEC.md §3.12 — one taxonomy for routing, dedup fingerprints, ledger
 routing:
