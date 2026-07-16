@@ -29,33 +29,42 @@ QA filing bugs, is an explicit scoped grant in config).
 
 ## Quickstart (new project)
 
-1. **Add APM to your project** (as a submodule, so the version that runs in CI
-   is pinned by your project repo):
+1. **Fork this template for your project.** Each project gets its own fork —
+   that fork holds the project's tailored config/agents, and it's what CI
+   pulls. On GitHub: Fork → name it after the project (e.g.
+   `Agentic-Project-Manager-<project>`). Keeping the template as an upstream
+   remote lets you pull future template improvements straight into the fork:
    ```bash
-   git submodule add https://github.com/<you>/AgenticProjectManager.git AgenticProjectManager
+   git remote add template git@github.com:foleyb25/Agentic-Project-Manager.git
+   git fetch template && git merge template/main
    ```
-2. **Write `SPEC.md`** at your project root: vision, roadmap/milestones, team
+2. **Add your fork to your project** (as a submodule, so the version that runs
+   in CI is pinned by your project repo):
+   ```bash
+   git submodule add git@github.com:<you>/Agentic-Project-Manager-<project>.git AgenticProjectManager
+   ```
+3. **Write `SPEC.md`** at your project root: vision, roadmap/milestones, team
    roles you want, process rules. The richer the spec, the smarter the
    tailoring.
-3. **Tailor** — open Claude Code anywhere in the project and run:
+4. **Tailor** — open Claude Code anywhere in the project and run:
    ```
    /tailor
    ```
    Claude reads `SPEC.md` and generates `config/apm.yaml` (roles, routing
    table, label taxonomy, milestones) and one `agents/roles/<role>.md` charter
-   per role. Review, adjust, commit (to your APM fork — the tailored source is
-   what CI pulls).
-4. **Bootstrap GitHub** (labels + first milestone):
+   per role. Review, adjust, commit + push to your fork, and update the
+   submodule pin in your project repo.
+5. **Bootstrap GitHub** (labels + first milestone):
    ```bash
    uv run apm bootstrap
    ```
-5. **Wire up CI**: copy `workflows/pm.yml` to your project repo's
+6. **Wire up CI**: copy `workflows/pm.yml` to your project repo's
    `.github/workflows/pm.yml`; add repo Actions secrets:
    `ANTHROPIC_API_KEY`, and for the Supabase ledger `SUPABASE_URL` +
    `SUPABASE_SERVICE_KEY` (apply `supabase/migrations/*.sql` to your Supabase
    project first). No Supabase? Set `ledger.backend: jsonfile` — zero external
    services (see Ledger backends).
-6. **Smoke test**: Actions → pm-agent → Run workflow. Then comment `@pm hello`
+7. **Smoke test**: Actions → pm-agent → Run workflow. Then comment `@pm hello`
    on any issue and watch it reply.
 
 ## Running locally
