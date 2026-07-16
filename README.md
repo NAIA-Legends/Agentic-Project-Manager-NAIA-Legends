@@ -82,6 +82,10 @@ Studio). Cost knobs, ledger backends, and architecture: see the
 and `docs/` (`PM_DATASTORE.md` for the ledger protocol, `setup.md` for the
 one-time checklist).
 
+Local secrets (e.g. the Supabase keys): `cp .env.example .env` and fill it in
+— the CLI auto-loads it, shell-exported vars always take precedence, and the
+file is gitignored. CI ignores `.env` entirely (Actions secrets instead).
+
 **Design rule inherited from the template: protocol in Python, judgment in
 prompts.** Retailor with `/tailor` only when `SPEC.md` changes materially —
 and commit the result here, then bump the submodule pin in the game repo.
