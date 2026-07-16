@@ -14,6 +14,7 @@ import sys
 import time
 
 from .config import ConfigError, load_config
+from .envfile import load_env_files
 
 
 def _parse_filters(pairs: list[str]) -> dict:
@@ -131,6 +132,7 @@ def main(argv: list[str] | None = None) -> int:
     p_boot.set_defaults(func=_cmd_bootstrap)
 
     args = parser.parse_args(argv)
+    load_env_files()  # local convenience; real env vars always win (CI unaffected)
     try:
         return args.func(args)
     except ConfigError as e:

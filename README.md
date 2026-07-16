@@ -82,6 +82,10 @@ Local runs use your interactive `claude` login — if that's a Claude
 subscription seat, local PM runs don't bill API tokens. CI runs use
 `ANTHROPIC_API_KEY`.
 
+Local secrets (e.g. the Supabase keys): `cp .env.example .env` and fill it in
+— the CLI auto-loads it, shell-exported vars always take precedence, and the
+file is gitignored. CI ignores `.env` entirely (Actions secrets instead).
+
 ## Cost knobs
 
 - `runner.engine: cli` (default) wraps `claude -p`; `sdk` uses the Python

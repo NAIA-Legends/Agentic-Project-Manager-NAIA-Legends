@@ -12,6 +12,7 @@ dist/
 # Local agent/session state
 .claude/settings.local.json
 
-# Secrets
+# Secrets (template stays tracked)
 .env
 .env.*
+!.env.example
