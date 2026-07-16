@@ -29,7 +29,7 @@ def load_env_files(*paths: str | Path) -> list[str]:
     for path in candidates:
         if not path.is_file():
             continue
-        for line in path.read_text(encoding="utf-8").splitlines():
+        for line in path.read_text(encoding="utf-8-sig").splitlines():
             line = line.strip()
             if not line or line.startswith("#") or "=" not in line:
                 continue
