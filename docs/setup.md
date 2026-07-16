@@ -6,7 +6,8 @@ CI installs its own copies (see `workflows/pm.yml`).
 
 ## 1. Wire APM into the project
 
-- [ ] `git submodule add https://github.com/<you>/AgenticProjectManager.git AgenticProjectManager`
+- [ ] Fork the template (`foleyb25/Agentic-Project-Manager`) for this project.
+- [ ] `git submodule add git@github.com:<you>/Agentic-Project-Manager-<project>.git AgenticProjectManager`
 - [ ] Write `SPEC.md` at the project root (vision, roadmap, roles, process).
 - [ ] Open Claude Code in the project, run `/tailor`, review the generated
       `config/apm.yaml` + `agents/roles/*.md`, commit them to your APM fork,
