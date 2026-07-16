@@ -21,4 +21,4 @@ run_id="pm-local-$(date +%Y%m%d-%H%M%S)"
 
 cd "$project_root"
 exec claude --plugin-dir "$plugin_dir" \
-  "/pm-run $trigger $run_id ${*:+focus:$*}"
+  "/agentic-pm:pm-run $trigger $run_id ${*:+focus:$*}"

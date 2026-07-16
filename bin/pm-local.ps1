@@ -26,7 +26,7 @@ if (Test-Path $EnvFile) {
 }
 
 $RunId = "pm-local-" + (Get-Date -Format "yyyyMMdd-HHmmss")
-$Prompt = "/pm-run $Trigger $RunId"
+$Prompt = "/agentic-pm:pm-run $Trigger $RunId"
 if ($Focus) { $Prompt += " focus:$Focus" }
 
 Set-Location $ProjectRoot
