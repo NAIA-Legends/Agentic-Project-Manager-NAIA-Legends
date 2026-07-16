@@ -59,7 +59,7 @@ jobs:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           prompt: >-
-            /pm-run
+            /agentic-pm:pm-run
             ${{ github.event_name == 'schedule' && 'schedule' || github.event_name }}
             pm-${{ github.run_id }}
             comment_id:${{ github.event.comment.id || '' }}
